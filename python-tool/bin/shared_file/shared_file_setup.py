@@ -1,13 +1,13 @@
 # -*- coding: UTF-8 -*-
-# shf_setup.py
+# shared_file_setup.py
 # Copyright (C) 2019 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-# gen_shf is free software: you can redistribute it and/or modify it
+# gen_shared_file is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
 # Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# gen_shf is distributed in the hope that it will be useful, but
+# gen_shared_file is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
@@ -54,7 +54,7 @@ class SHFSetup(object):
     """
 
     __slots__ = ('VERBOSE')
-    VERBOSE = 'GEN_SHF::SHF_SETUP::SHFSETUP'
+    VERBOSE = 'GEN_SHARED_FILE::SHARED_FILE_SETUP::SHFSETUP'
 
     def __init__(self, verbose=False):
         """

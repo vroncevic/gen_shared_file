@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# gen_shf.py
+# gen_shared_file.py
 # Copyright (C) 2019 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-# gen_shf is free software: you can redistribute it and/or modify it
+# gen_shared_file is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
 # Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# gen_shf is distributed in the hope that it will be useful, but
+# gen_shared_file is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
@@ -22,7 +22,7 @@ from os import getcwd
 try:
     from pathlib import Path
 
-    from shf.shf_setup import SHFSetup
+    from shared_file.shared_file_setup import SHFSetup
     from ats_utilities.cfg_base import CfgBase
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
@@ -57,8 +57,8 @@ class GenSHF(CfgBase):
     """
 
     __slots__ = ('VERBOSE', '__CONFIG', '__OPS')
-    VERBOSE = 'GEN_SHF'
-    __CONFIG = '/../conf/gen_shf.cfg'
+    VERBOSE = 'GEN_SHARED_FILE'
+    __CONFIG = '/../conf/gen_shared_file.cfg'
     __OPS = ['-g', '--gen', '-h', '--version']
 
     def __init__(self, verbose=False):
@@ -109,7 +109,7 @@ class GenSHF(CfgBase):
                     'Generating SHF project skeleton', opts.pro
                 )
                 print(message)
-                gen_status = generator.gen_shm_setup("{0}".format(opts.pro))
+                gen_status = generator.gen_shf_setup("{0}".format(opts.pro))
                 if gen_status:
                     success_message(self.name, 'Done\n')
                     status = True
@@ -118,6 +118,6 @@ class GenSHF(CfgBase):
             else:
                 error_message(self.name, 'project already exist !')
         else:
-            error_message('gen_shf', 'Tool is not operational')
+            error_message('gen_shared_file', 'Tool is not operational')
         return True if status else False
 
