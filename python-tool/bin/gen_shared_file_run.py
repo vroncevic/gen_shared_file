@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-# gen_shf_run.py
+# gen_shared_file_run.py
 # Copyright (C) 2019 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-# gen_shf is free software: you can redistribute it and/or modify it
+# gen_shared_file is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
 # Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# gen_shf is distributed in the hope that it will be useful, but
+# gen_shared_file is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU General Public License for more details.
@@ -20,7 +20,7 @@
 import sys
 
 try:
-    from gen_shf import GenSHF
+    from gen_shared_file import GenSHF
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ##################################

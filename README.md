@@ -9,9 +9,9 @@ other information that should be provided before the modules are installed.
 To install this set of modules type the following:
 
 ```
-cp -R ~/gen_shf_scripts/bin/   /root/scripts/gen_shf/ver.1.0/
-cp -R ~/gen_shf_scripts/conf/  /root/scripts/gen_shf/ver.1.0/
-cp -R ~/gen_shf_scripts/log/   /root/scripts/gen_shf/ver.1.0/
+cp -R ~/gen_shared_file/bin/   /root/scripts/gen_shared_file/ver.1.0/
+cp -R ~/gen_shared_file/conf/  /root/scripts/gen_shared_file/ver.1.0/
+cp -R ~/gen_shared_file/log/   /root/scripts/gen_shared_file/ver.1.0/
 ```
 
 ### DEPENDENCIES
@@ -22,7 +22,7 @@ This module requires these other modules and libraries:
 
 ### COPYRIGHT AND LICENCE
 
-Copyright (C) 2019 by https://vroncevic.github.io/shared_files_skeleton/
+Copyright (C) 2019 by https://vroncevic.github.io/gen_shared_file/
 
 This tool is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 2.7/3.4 or,
