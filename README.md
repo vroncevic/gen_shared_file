@@ -4,7 +4,7 @@
 
 **gen_shared_file** is tool for generation of shared file modules.
 
-Developed in **[python](https://www.python.org/)** code: **100%**.
+Developed in **[python](https://www.python.org/)** code.
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
@@ -32,16 +32,18 @@ other information that should be provided before the modules are installed.
 
 ![Install Python2 Package](https://github.com/vroncevic/gen_shared_file/workflows/Install%20Python2%20Package%20gen_shared_file/badge.svg?branch=master) ![Install Python3 Package](https://github.com/vroncevic/gen_shared_file/workflows/Install%20Python3%20Package%20gen_shared_file/badge.svg?branch=master)
 
-Currently there are three ways to install tool:
-* Install process based on pip
-* Install process based on setup.py (setuptools)
-* Install process based on docker mechanism
+Currently there are three ways to install tool
+
+- Install process based on pip
+- Install process based on setup.py (setuptools)
+- Install process based on docker mechanism
 
 ##### Install using pip
 
 Python package is located at **[pypi.org](https://pypi.org/project/gen-shared-file/)**.
 
 You can install by using pip
+
 ```
 # python2
 pip install gen-shared-file
@@ -54,6 +56,7 @@ pip3 install gen-shared-file
 Navigate to release **[page](https://github.com/vroncevic/gen_shared_file/releases/)** download and extract release archive.
 
 To install modules, locate and run setup.py with arguments
+
 ```
 tar xvzf gen_shared_file-x.y.z.tar.gz
 cd gen_shared_file-x.y.z/
@@ -77,21 +80,21 @@ You can use docker to create image/container.
 
 ### Dependencies
 
-**gen_shared_file** requires next modules and libraries:
+**gen_shared_file** requires next modules and libraries
 
-* [ats-utilities - Python App/Tool/Script Utilities](https://vroncevic.github.io/ats_utilities)
+- [ats-utilities - Python App/Tool/Script Utilities](https://vroncevic.github.io/ats_utilities)
 
 ### Generation flow of py module
 
-Base flow of generation process:
+Base flow of generation process
 
 ![alt tag](https://raw.githubusercontent.com/vroncevic/gen_shared_file/dev/docs/gen_shared_file_flow.png)
 
 ### Tool structure
 
-**gen_shared_file** is based on OOP:
+**gen_shared_file** is based on OOP
 
-Generator structure:
+Generator structure
 
 ```
 
@@ -101,15 +104,16 @@ Generator structure:
 
 [![Documentation Status](https://readthedocs.org/projects/gen_shared_file/badge/?version=latest)](https://gen_shared_file.readthedocs.io/projects/gen_shared_file/en/latest/?badge=latest)
 
-More documentation and info at:
-* [gen_shared_file.readthedocs.io](https://gen_shared_file.readthedocs.io/en/latest/)
-* [www.python.org](https://www.python.org/)
+More documentation and info at
+
+- [gen_shared_file.readthedocs.io](https://gen_shared_file.readthedocs.io/en/latest/)
+- [www.python.org](https://www.python.org/)
 
 ### Copyright and Licence
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2020 by [vroncevic.github.io/gen_shared_file](https://vroncevic.github.io/gen_shared_file)
+Copyright (C) 2019 by [vroncevic.github.io/gen_shared_file](https://vroncevic.github.io/gen_shared_file)
 
 **gen_shared_file** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 2.x/3.x or,
