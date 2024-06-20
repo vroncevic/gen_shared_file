@@ -1,0 +1,65 @@
+/* -*- Mode: H; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*-  */
+/*
+ * shared_file.h
+ * Copyright (C) 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
+ *
+ * myipc is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * myipc is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+#pragma once
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+
+//////////////////////////////////////////////////////////////////////////////
+/// @brief Shared file buffer size
+#define SHARED_FILE_BUFFER_SIZE 4096
+
+//////////////////////////////////////////////////////////////////////////////
+/// @brief Success operation status
+#define SHARED_FILE_SUCCESS 0
+
+//////////////////////////////////////////////////////////////////////////////
+/// @brief Error operation status
+#define SHARED_FILE_ERROR -1
+
+//////////////////////////////////////////////////////////////////////////////
+/// @brief Lock mechanism for a shared file
+/// @param fd Shared file descriptor
+/// @param lock Lock structure
+/// @return 0 on success or -1 on error
+int file_shared_lock(int fd, struct flock *lock);
+
+//////////////////////////////////////////////////////////////////////////////
+/// @brief Unlock mechanism for a shared file
+/// @param fd Shared file descriptor
+/// @param lock Lock structure
+/// @return 0 on success or -1 on error
+int file_shared_unlock(int fd, struct flock *lock);
+
+//////////////////////////////////////////////////////////////////////////////
+/// @brief Writes data to a shared file with a write lock mechanism
+/// @param fd Shared file descriptor
+/// @param buffer Buffer with data to write
+/// @return 0 on success or -1 on error
+int write_shared_file(int fd, const char *buffer);
+
+//////////////////////////////////////////////////////////////////////////////
+/// @brief Reads a shared file with a read-only lock mechanism
+/// @param fd Shared file descriptor
+/// @param buffer Buffer for read bytes
+/// @return Number of bytes read or -1 on error
+int read_shared_file(int fd, char *buffer);

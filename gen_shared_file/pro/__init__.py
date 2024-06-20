@@ -1,43 +1,46 @@
 # -*- coding: UTF-8 -*-
 
 '''
- Module
-     __init__.py
- Copyright
-     Copyright (C) 2019 Vladimir Roncevic <elektron.ronca@gmail.com>
-     gen_shared_file is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     gen_shared_file is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class GenSharedFileSetup with attribute(s) and method(s).
-     Generate module file generator_test.py by template and parameters.
+Module
+    __init__.py
+Copyright
+    Copyright (C) 2019 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
+    gen_shared_file is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    gen_shared_file is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class GenSharedFileSetup with attribute(s) and method(s).
+    Generates shared file modules by template and parameters.
 '''
 
 import sys
+from typing import List, Dict
+from os.path import dirname, realpath
 
 try:
-    from gen_shared_file.pro.read_template import ReadTemplate
-    from gen_shared_file.pro.write_template import WriteTemplate
-    from ats_utilities.checker import ATSChecker
-    from ats_utilities.config_io.base_check import FileChecking
+    from ats_utilities.pro_config import ProConfig
+    from ats_utilities.pro_config.pro_name import ProName
+    from ats_utilities.config_io.file_check import FileCheck
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
+    from ats_utilities.exceptions.ats_value_error import ATSValueError
+    from gen_shared_file.pro.read_template import ReadTemplate
+    from gen_shared_file.pro.write_template import WriteTemplate
 except ImportError as ats_error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
+    # Force close python ATS ##################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2019, https://vroncevic.github.io/gen_shared_file'
-__credits__ = ['Vladimir Roncevic']
+__copyright__ = '(C) 2024, https://vroncevic.github.io/gen_shared_file'
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/gen_shared_file/blob/dev/LICENSE'
 __version__ = '1.0.0'
 __maintainer__ = 'Vladimir Roncevic'
@@ -45,106 +48,105 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class GenSharedFileSetup(FileChecking):
+class GenSharedFileSetup(FileCheck, ProConfig, ProName):
     '''
-        Defined class GenSharedFileSetup with attribute(s) and method(s).
-        Generate module file generator_test.py by template and parameters.
+        Defines class GenSharedFileSetup with attribute(s) and method(s).
+        Generates shared file modules by template and parameters.
+
         It defines:
 
             :attributes:
-                | GEN_VERBOSE - console text indicator for process-phase.
-                | PRO_STRUCTURE - project setup (template, module).
-                | __reader - reader API.
-                | __writer - writer API.
-                | __config - project setup in dict format.
+                | _GEN_VERBOSE - Console text indicator for process-phase.
+                | _PRO_STRUCTURE - Project setup (templates, modules).
+                | _reader - Reader API.
+                | _writer - Writer API.
             :methods:
-                | __init__ - initial constructor.
-                | get_reader - getter for template reader.
-                | get_writer - getter for template writer.
-                | gen_setup - generate module file setup.py.
-                | __str__ - dunder method for GenSharedFileSetup.
+                | __init__ - Initials GenSharedFileSetup constructor.
+                | get_reader - Gets template reader.
+                | get_writer - Gets template writer.
+                | gen_setup - Generates shared file modules.
     '''
+    _GEN_VERBOSE: str = 'GEN_SHARED_FILE::PRO::GEN_SHARED_FILE_SETUP'
+    _PRO_STRUCTURE: str = '/../conf/project.yaml'
 
-    GEN_VERBOSE = 'GEN_SHARED_FILE::PRO::GEN_SETUP'
-
-    def __init__(self, verbose=False):
+    def __init__(self, verbose: bool = False) -> None:
         '''
-            Initial constructor.
+            Initials GenSharedFileSetup constructor.
 
             :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
-        FileChecking.__init__(self, verbose=verbose)
-        verbose_message(GenSharedFileSetup.GEN_VERBOSE, verbose, 'init setup')
-        self.__reader = ReadTemplate(verbose=verbose)
-        self.__writer = WriteTemplate(verbose=verbose)
-
-    def get_reader(self):
-        '''
-            Getter for template reader.
-
-            :return: template reader object.
-            :rtype: <ReadTemplate>
-            :exceptions: None
-        '''
-        return self.__reader
-
-    def get_writer(self):
-        '''
-            Getter for template writer.
-
-            :return: template writer object.
-            :rtype: <WriteTemplate>
-            :exceptions: None
-        '''
-        return self.__writer
-
-    def gen_setup(self, pro_name, verbose=False):
-        '''
-            Generate module generator_test.py.
-
-            :param pro_name: project name.
-            :type pro_name: <str>
-            :param verbose: enable/disable verbose option.
-            :type verbose: <bool>
-            :return: boolean status, True (success) | False.
-            :rtype: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
-        '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([
-            ('str:pro_name', pro_name)
-        ])
-        if status == ATSChecker.TYPE_ERROR:
-            raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR:
-            raise ATSBadCallError(error)
-        status, setup_content = False, None
+        FileCheck.__init__(self, verbose)
+        ProConfig.__init__(self, verbose)
+        ProName.__init__(self, verbose)
         verbose_message(
-            GenSharedFileSetup.GEN_VERBOSE, verbose,
-            'generating module', pro_name
+            verbose, [f'{self._GEN_VERBOSE.lower()} init generator']
         )
-        template_file, module = 'generator_test.template', 'generator_test.py'
-        if bool(template_file):
-            setup_content = self.__reader.read(
-                template_file, verbose=verbose
+        self._reader: ReadTemplate | None = ReadTemplate(verbose)
+        self._writer: WriteTemplate | None = WriteTemplate(verbose)
+        current_dir: str = dirname(realpath(__file__))
+        pro_structure: str = f'{current_dir}{self._PRO_STRUCTURE}'
+        self.check_path(pro_structure, verbose)
+        self.check_mode('r', verbose)
+        self.check_format(pro_structure, 'yaml', verbose)
+        if self.is_file_ok():
+            yml2obj: Yaml2Object | None = Yaml2Object(pro_structure)
+            self.config = yml2obj.read_configuration()
+
+    def get_reader(self) -> ReadTemplate | None:
+        '''
+            Gets template reader.
+
+            :return: Template reader object | None
+            :rtype: <ReadTemplate> | <NoneType>
+            :exceptions: None
+        '''
+        return self._reader
+
+    def get_writer(self) -> WriteTemplate | None:
+        '''
+            Gets template writer.
+
+            :return: Template writer object | none
+            :rtype: <WriteTemplate> | <NoneType
+            :exceptions: None
+        '''
+        return self._writer
+
+    def gen_setup(
+        self,
+        pro_name: str | None,
+        verbose: bool = False
+    ) -> bool:
+        '''
+            Generates shared file modules.
+
+            :param pro_name: Parameter module name
+            :type pro_name: <str> | <NoneType>
+            :param verbose: Enable/Disable verbose option
+            :type verbose: <bool>
+            :return: True (success operation) | False
+            :rtype: <bool>
+            :exceptions: ATSTypeError | ATSValueError
+        '''
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = self.check_params([('str:pro_name', pro_name)])
+        if error_id == self.TYPE_ERROR:
+            raise ATSTypeError(error_msg)
+        if not bool(pro_name):
+            raise ATSValueError('missing module name')
+        verbose_message(
+            verbose, [f'{self._GEN_VERBOSE.lower()} generate {pro_name}']
+        )
+        status: bool = False
+        if bool(self._reader) and bool(self.config):
+            template_content: Dict[str, str] = self._reader.read(
+                self.config, verbose
             )
-            if setup_content:
-                status = self.__writer.write(
-                    setup_content, pro_name, module, verbose=verbose
+            if bool(template_content) and bool(self._writer):
+                status = self._writer.write(
+                    template_content, pro_name, verbose
                 )
         return status
-
-    def __str__(self):
-        '''
-            Dunder method for GenSharedFileSetup.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0} ({1}, {2}, {3})'.format(
-            self.__class__.__name__, FileChecking.__str__(self),
-            str(self.__reader), str(self.__writer)
-        )

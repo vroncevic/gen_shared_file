@@ -1,0 +1,13 @@
+templates:
+  - shared_file.template
+  - shared_file_lock.template
+  - shared_file_unlock.template
+  - write_shared_file.template
+  - read_shared_file.template
+
+modules:
+  - shared_file.h
+  - shared_file_lock.c
+  - shared_file_unlock.c
+  - write_shared_file.c
+  - read_shared_file.c

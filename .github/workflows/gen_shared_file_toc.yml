@@ -1,11 +1,11 @@
-name: TOC Generator gen_shared_file
+name: gen_shared_file_toc
 on:
   push:
     paths:
       - '**.md'
 jobs:
   generateTOC:
-    name: TOC Generator
+    name: gen_shared_file_toc
     runs-on: ubuntu-latest
     steps:
-      - uses: technote-space/toc-generator@v2
+      - uses: technote-space/toc-generator@v4
