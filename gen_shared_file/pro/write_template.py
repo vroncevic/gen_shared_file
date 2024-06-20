@@ -1,42 +1,43 @@
 # -*- coding: UTF-8 -*-
 
 '''
- Module
-     write_template.py
- Copyright
-     Copyright (C) 2019 Vladimir Roncevic <elektron.ronca@gmail.com>
-     gen_shared_file is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     gen_shared_file is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class WriteTemplate with attribute(s) and method(s).
-     Created API for write operation of template content.
+Module
+    write_template.py
+Copyright
+    Copyright (C) 2019 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
+    gen_shared_file is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    gen_shared_file is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class WriteTemplate with attribute(s) and method(s).
+    Creates an API for write a template content with parameters to a file.
 '''
 
 import sys
-from os import getcwd, chmod
+from typing import List, Dict
+from datetime import date
+from os import getcwd, chmod, mkdir
 from string import Template
 
 try:
-    from ats_utilities.checker import ATSChecker
-    from ats_utilities.config_io.base_check import FileChecking
+    from ats_utilities.config_io.file_check import FileCheck
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
+    from ats_utilities.exceptions.ats_value_error import ATSValueError
 except ImportError as ats_error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
+    # Force close python ATS ##################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2019, https://vroncevic.github.io/gen_shared_file'
-__credits__ = ['Vladimir Roncevic']
+__copyright__ = '(C) 2024, https://vroncevic.github.io/gen_shared_file'
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/gen_shared_file/blob/dev/LICENSE'
 __version__ = '1.0.0'
 __maintainer__ = 'Vladimir Roncevic'
@@ -44,96 +45,81 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class WriteTemplate(FileChecking):
+class WriteTemplate(FileCheck):
     '''
-        Defined class WriteTemplate with attribute(s) and method(s).
-        Created API for write operation of template content.
+        Defines class WriteTemplate with attribute(s) and method(s).
+        Creates an API for write a template content with parameters to a file.
+
         It defines:
 
             :attributes:
-                | GEN_VERBOSE - console text indicator for process-phase.
-                | __setup - setup file path.
+                | _GEN_VERBOSE - Console text indicator for process-phase.
             :methods:
-                | __init__ - initial constructor.
-                | get_setup - getter for setup file object.
-                | write - write a template content to a file generator_test.py.
-                | __str__ - dunder method for WriteTemplate.
+                | __init__ - Initials WriteTemplate constructor.
+                | write - write a template content with parameters to a file.
     '''
 
-    GEN_VERBOSE = 'GEN_SHARED_FILE::PRO::WRITE_TEMPLATE'
+    _GEN_VERBOSE = 'GEN_SHARED_FILE::PRO::WRITE_TEMPLATE'
 
-    def __init__(self, verbose=False):
+    def __init__(self, verbose: bool = False) -> None:
         '''
-            Initial constructor.
+            Initials WriteTemplate constructor.
 
-            :param verbose: enable/disable verbose option.
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: None
+            :excptions: None
         '''
-        FileChecking.__init__(self, verbose=verbose)
-        verbose_message(WriteTemplate.GEN_VERBOSE, verbose, 'init writer')
-        self.__setup = None
+        super().__init__(verbose)
+        verbose_message(verbose, [f'{self._GEN_VERBOSE.lower()} init writer'])
 
-    def get_setup(self):
+    def write(
+        self,
+        template_content: Dict[str, str],
+        pro_name: str | None,
+        verbose: bool = False
+    ) -> bool:
         '''
-            Getter for setup file object.
+            Write setup content to file.
 
-            :return: setup file path | None.
-            :rtype: <str> | <NoneType>
-        '''
-        return self.__setup
-
-    def write(self, setup_content, pro_name, module, verbose=False):
-        '''
-            Write setup content to file generator_test.py.
-
-            :param setup_content: template content.
-            :type setup_content: <str>
-            :param pro_name: parameter package name.
-            :type pro_name: <str>
-            :param module: module name.
-            :type module: <str>
-            :param verbose: enable/disable verbose option.
+            :param template_content: Template content
+            :type template_content: <Dict[str, str]>
+            :param pro_name: Project name | None
+            :type pro_name: <str> | <NoneType>
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :return: boolean status, True (success) | False.
+            :return: True (success operation) | False
             :rtype: <bool>
-            :exception: ATSTypeError | ATSBadCallError
+            :exception: ATSTypeError | ATSValueError
         '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([
-            ('str:setup_content', setup_content),
-            ('str:pro_name', pro_name),
-            ('str:module', module)
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = self.check_params([
+            ('dict:template_content', template_content),
+            ('str:pro_name', pro_name)
         ])
-        if status == ATSChecker.TYPE_ERROR:
-            raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR:
-            raise ATSBadCallError(error)
-        status, template = False, None
-        self.__setup = '{0}/{1}'.format(getcwd(), module)
-        verbose_message(WriteTemplate.GEN_VERBOSE, verbose, 'write', module)
-        package = {'PRO': '{0}'.format(pro_name)}
-        template = Template(setup_content)
-        if template:
-            with open(self.__setup, 'w') as setup_file:
-                setup_file.write(template.substitute(package))
-                chmod(self.__setup, 0o666)
-                self.check_path(self.__setup, verbose=verbose)
-                self.check_mode('w', verbose=verbose)
-                self.check_format(self.__setup, 'py',verbose=verbose)
+        if error_id == self.TYPE_ERROR:
+            raise ATSTypeError(error_msg)
+        if not bool(template_content):
+            raise ATSValueError('missing template content')
+        if not bool(pro_name):
+            raise ATSValueError('missing project name')
+        module_pro_dir: str = f'{getcwd()}/{pro_name}/'
+        mkdir(module_pro_dir)
+        status: bool = False
+        for module_name, module_content in template_content.items():
+            template: Template = Template(module_content)
+            module_path: str = f'{module_pro_dir}{module_name}'
+            with open(module_path, 'w', encoding='utf-8') as module_file:
+                module_file.write(template.substitute({
+                    'PRO_NAME': pro_name,
+                    'YEAR': f'{str(date.today().year)}'
+                }))
+                chmod(module_path, 0o644)
+                self.check_path(module_path, verbose)
+                self.check_mode('w', verbose)
+                self.check_format(
+                    module_path, module_path.split('.')[1], verbose
+                )
                 if self.is_file_ok():
                     status = True
         return status
-
-    def __str__(self):
-        '''
-            Dunder method for WriteTemplate.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0} ({1}, {2})'.format(
-            self.__class__.__name__, FileChecking.__str__(self),
-            str(self.__setup)
-        )

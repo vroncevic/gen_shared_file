@@ -1,5 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/data/dev/python/3_tools/gen_shared_file/github/gen_shared_file/docs'
-sphinx-build -M help "source" "build"  
-make: Leaving directory '/data/dev/python/3_tools/gen_shared_file/github/gen_shared_file/docs'
- 
