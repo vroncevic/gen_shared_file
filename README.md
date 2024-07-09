@@ -23,6 +23,7 @@ other information that should be provided before the modules are installed.
     - [Install using docker](#install-using-docker)
 - [Dependencies](#dependencies)
 - [Tool structure](#tool-structure)
+- [Code coverage](#code-coverage)
 - [Docs](#docs)
 - [Contributing](#contributing)
 - [Copyright and licence](#copyright-and-licence)
@@ -110,27 +111,40 @@ Generator structure
 
 ```bash
     gen_shared_file/
-          ├── conf/
-          │   ├── gen_shared_file.logo
-          │   ├── gen_shared_file.cfg
-          │   ├── gen_shared_file_util.cfg
-          │   ├── project.yaml
-          │   └── template/
-          │       ├── shared_file.template
-          │       ├── shared_file_lock.template
-          │       ├── shared_file_unlock.template
-          │       ├── write_shared_file.template
-          │       └── read_shared_file.template
-          ├── __init__.py
-          ├── log/
-          │   └── gen_shared_file.log
-          ├── pro/
-          │   ├── __init__.py
-          │   ├── read_template.py
-          │   └── write_template.py
-          └── run/
-              └── gen_shared_file_run.py
+           ├── conf/
+           │   ├── gen_shared_file.cfg
+           │   ├── gen_shared_file.logo
+           │   ├── gen_shared_file_util.cfg
+           │   ├── project.yaml
+           │   └── template/
+           │       ├── read_shared_file.template
+           │       ├── shared_file_lock.template
+           │       ├── shared_file.template
+           │       ├── shared_file_unlock.template
+           │       └── write_shared_file.template
+           ├── __init__.py
+           ├── log/
+           │   └── gen_shared_file.log
+           ├── pro/
+           │   ├── __init__.py
+           │   ├── read_template.py
+           │   └── write_template.py
+           ├── py.typed
+           └── run/
+               └── gen_shared_file_run.py
+
+    6 directories, 16 files
 ```
+
+### Code coverage
+
+| Name | Stmts | Miss | Cover |
+|------|-------|------|-------|
+| `gen_shared_file/__init__.py` | 71 | 14 | 80% |
+| `gen_shared_file/pro/__init__.py` | 60 | 6 | 90% |
+| `gen_shared_file/pro/read_template.py` | 43 | 4 | 91% |
+| `gen_shared_file/pro/write_template.py` | 50 | 5 | 90% |
+| **Total** | 224 | 29 | 87% |
 
 ### Docs
 
