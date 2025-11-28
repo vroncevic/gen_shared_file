@@ -140,11 +140,11 @@ Generator structure
 
 | Name | Stmts | Miss | Cover |
 |------|-------|------|-------|
-| `gen_shared_file/__init__.py` | 71 | 14 | 80% |
-| `gen_shared_file/pro/__init__.py` | 60 | 6 | 90% |
-| `gen_shared_file/pro/read_template.py` | 43 | 4 | 91% |
-| `gen_shared_file/pro/write_template.py` | 50 | 5 | 90% |
-| **Total** | 224 | 29 | 87% |
+| `gen_shared_file/__init__.py` | 69 | 12 | 83%|
+| `gen_shared_file/pro/__init__.py` | 58 | 4 | 93%|
+| `gen_shared_file/pro/read_template.py` | 41 | 2 | 95%|
+| `gen_shared_file/pro/write_template.py` | 48 | 3 | 94%|
+| **Total** | 216 | 21 | 90% |
 
 ### Docs
 
@@ -163,7 +163,7 @@ More documentation and info at
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2019 - 2024 by [vroncevic.github.io/gen_shared_file](https://vroncevic.github.io/gen_shared_file/)
+Copyright (C) 2019 - 2026 by [vroncevic.github.io/gen_shared_file](https://vroncevic.github.io/gen_shared_file/)
 
 **gen_shared_file** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.x or,
