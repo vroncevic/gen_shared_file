@@ -2,9 +2,9 @@
 
 '''
 Module
-    __init__.py
+    main.py
 Copyright
-    Copyright (C) 2019 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     gen_shared_file is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -16,14 +16,43 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Initialization module for the gen_shared_file.
+    Main entry point for Task Code Generator CLI.
 '''
+
+from __future__ import annotations
+
+from sys import exit
+
+from gen_shared_file.engine import GenSharedFile
+from gen_shared_file.setup.factory import GenSharedFileBundleFactory
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2026, https://vroncevic.github.io/gen_shared_file'
 __credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/gen_shared_file/blob/dev/LICENSE'
-__version__ = '1.0.3'
+__version__ = '1.0.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
+
+
+def main() -> bool:
+    '''
+        Bootstraps and runs the gen_shared_file with required adapters.
+
+        :return: True if successful, False otherwise.
+        :exceptions: None
+    '''
+    gen_shared_file: GenSharedFile = GenSharedFile(GenSharedFileBundleFactory.create_bundle())
+
+    return gen_shared_file.process()
+
+
+if __name__ == '__main__':
+    '''
+        Entry point for gen_shared_file execution.
+
+        :exit code: 0 if successful, 1 otherwise.
+        :exceptions: None
+    '''
+    exit(0 if main() else 1)
