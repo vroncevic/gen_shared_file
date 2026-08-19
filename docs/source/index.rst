@@ -36,10 +36,19 @@ other information that should be provided before the tool is installed.
 🚀 Installation
 ------------------
 
-|gen_shared_file python3 build|
+|gen_shared_file python3 build| |gen_shared_file interface checker| |gen_shared_file isp checker| |gen_shared_file srp checker|
 
 .. |gen_shared_file python3 build| image:: https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_python3_build.yml/badge.svg
    :target: https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_python3_build.yml
+
+.. |gen_shared_file interface checker| image:: https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_interface_checker.yml/badge.svg
+   :target: https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_interface_checker.yml
+
+.. |gen_shared_file isp checker| image:: https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_isp_checker.yml/badge.svg
+   :target: https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_isp_checker.yml
+
+.. |gen_shared_file srp checker| image:: https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_srp_checker.yml/badge.svg
+   :target: https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_srp_checker.yml
 
 Navigate to release `page`_ download and extract release archive.
 
@@ -197,6 +206,8 @@ More documentation and info at
 📄 Copyright and licence
 --------------------------
 
+|gpl v3 license| |apache 2.0 license|
+
 Copyright (C) 2025 - 2026 by `vroncevic.github.io/gen_shared_file <https://vroncevic.github.io/gen_shared_file>`_
 
 **gen_shared_file** is free software; you can redistribute it and/or modify
@@ -204,3 +215,19 @@ it under the same terms as Python itself, either Python version 3.x or,
 at your option, any later version of Python 3 you may have available.
 
 Lets help and support PSF.
+
+|python software foundation|
+
+|donate|
+
+.. |gpl v3 license| image:: https://img.shields.io/badge/License-GPLv3-blue.svg
+   :target: https://www.gnu.org/licenses/gpl-3.0
+
+.. |apache 2.0 license| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
+   :target: https://opensource.org/licenses/Apache-2.0
+
+.. |python software foundation| image:: https://raw.githubusercontent.com/vroncevic/gen_shared_file/dev/docs/psf-logo-alpha.png
+   :target: https://www.python.org/psf/
+
+.. |donate| image:: https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif
+   :target: https://www.python.org/psf/donations/
