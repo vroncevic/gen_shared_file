@@ -1,0 +1,13 @@
+{
+    "base": {
+        "source_dir": "base",
+        "path_replacements": {
+            "dummy_nonexistent": "project_name"
+        },
+        "exclude": [
+            "**/.coverage",
+            "**/.vscode/**",
+            "**/.git/**"
+        ]
+    }
+}

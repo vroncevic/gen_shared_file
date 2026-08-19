@@ -1,14 +1,14 @@
-# Generate Shared File Modules
+# Create SharedFile project skeleton
 
 <img align="right" src="https://raw.githubusercontent.com/vroncevic/gen_shared_file/dev/docs/gen_shared_file_logo.png" width="25%">
 
-**gen_shared_file** is tool for generation of shared file modules.
+**gen_shared_file** is tool for creating SharedFile project skeleton.
 
 Developed in **[python](https://www.python.org/)** code.
 
-The README is used to introduce the modules and provide instructions on
-how to install the modules, any machine dependencies it may have and any
-other information that should be provided before the modules are installed.
+The README is used to introduce the tool and provide instructions on
+how to install the tool, any machine dependencies it may have and any
+other information that should be provided before the tool is installed.
 
 [![gen_shared_file python checker](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_python_checker.yml/badge.svg)](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_python_checker.yml) [![gen_shared_file package checker](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_package_checker.yml/badge.svg)](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_package.yml) [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/gen_shared_file.svg)](https://github.com/vroncevic/gen_shared_file/issues) [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/gen_shared_file.svg)](https://github.com/vroncevic/gen_shared_file/graphs/contributors)
 
@@ -16,29 +16,31 @@ other information that should be provided before the modules are installed.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
-- [Installation](#installation)
+- [🚀 Installation](#-installation)
     - [Install using pip](#install-using-pip)
     - [Install using build](#install-using-build)
     - [Install using py setup](#install-using-py-setup)
     - [Install using docker](#install-using-docker)
-- [Dependencies](#dependencies)
-- [Tool structure](#tool-structure)
-- [Code coverage](#code-coverage)
-- [Docs](#docs)
-- [Contributing](#contributing)
-- [Copyright and licence](#copyright-and-licence)
+- [📦 Dependencies](#-dependencies)
+- [📁 Tool structure](#-tool-structure)
+  - [✨ Features](#-features)
+- [📊 Code coverage](#-code-coverage)
+- [🛠 Usage](#-usage)
+- [📚 Docs](#-docs)
+- [👥 Contributing](#-contributing)
+- [📄 Copyright and licence](#-copyright-and-licence)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-### Installation
+### 🚀 Installation
 
 Used next development environment
 
 ![debian linux os](https://raw.githubusercontent.com/vroncevic/gen_shared_file/dev/docs/debtux.png)
 
-[![gen_shared_file python3 build](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_python3_build.yml/badge.svg)](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_python3_build.yml)
+[![gen_shared_file python3 build](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_python3_build.yml/badge.svg)](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_python3_build.yml) [![gen_shared_file_interface_checker](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_interface_checker.yml/badge.svg)](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_interface_checker.yml) [![gen_shared_file_isp_checker](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_isp_checker.yml/badge.svg)](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_isp_checker.yml) [![gen_shared_file_srp_checker](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_srp_checker.yml/badge.svg)](https://github.com/vroncevic/gen_shared_file/actions/workflows/gen_shared_file_srp_checker.yml)
 
-Currently there are three ways to install package
+Currently there are four ways to install package
 * Install process based on using pip mechanism
 * Install process based on build mechanism
 * Install process based on setup.py mechanism
@@ -67,6 +69,8 @@ cd gen_shared_file-x.y.z/
 # python3
 wget https://bootstrap.pypa.io/get-pip.py
 python3 get-pip.py 
+# python3
+python3 get-pip.py
 python3 -m pip install --upgrade setuptools
 python3 -m pip install --upgrade pip
 python3 -m pip install --upgrade build
@@ -74,8 +78,6 @@ pip3 install -r requirements.txt
 python3 -m build --no-isolation --wheel
 pip3 install ./dist/gen_shared_file-*-py3-none-any.whl
 rm -f get-pip.py
-chmod 755 /usr/local/lib/python3.10/dist-packages/usr/local/bin/gen_shared_file_run.py
-ln -s /usr/local/lib/python3.10/dist-packages/usr/local/bin/gen_shared_file_run.py /usr/local/bin/gen_shared_file_run.py
 ```
 
 ##### Install using py setup
@@ -97,56 +99,162 @@ python3 setup.py install_egg_info
 
 You can use Dockerfile to create image/container.
 
-### Dependencies
+### 📦 Dependencies
 
 **gen_shared_file** requires next modules and libraries
 
 * [ats-utilities - Python App/Tool/Script Utilities](https://pypi.org/project/ats-utilities/)
 
-### Tool structure
+### 📁 Tool structure
 
-**gen_shared_file** is based on OOP
+**gen_shared_file** is based on OOP.
 
-Generator structure
+Tool structure
+
+<details>
+<summary><b>Click to expand framework structure</b></summary>
 
 ```bash
     gen_shared_file/
-           ├── conf/
-           │   ├── gen_shared_file.cfg
-           │   ├── gen_shared_file.logo
-           │   ├── gen_shared_file_util.cfg
-           │   ├── project.yaml
-           │   └── template/
-           │       ├── read_shared_file.template
-           │       ├── shared_file_lock.template
-           │       ├── shared_file.template
-           │       ├── shared_file_unlock.template
-           │       └── write_shared_file.template
-           ├── __init__.py
-           ├── log/
-           │   └── gen_shared_file.log
-           ├── pro/
-           │   ├── __init__.py
-           │   ├── read_template.py
-           │   └── write_template.py
-           ├── py.typed
-           └── run/
-               └── gen_shared_file_run.py
+         ├── core/
+         │   ├── __init__.py
+         │   ├── model/
+         │   │   ├── __init__.py
+         │   │   └── project_setup.py
+         │   └── service/
+         │       ├── engine.py
+         │       ├── __init__.py
+         │       ├── iservice.py
+         │       └── isubprocessor.py
+         ├── engine.py
+         ├── infrastructure/
+         │   ├── cli/
+         │   │   ├── engine.py
+         │   │   ├── icli.py
+         │   │   ├── __init__.py
+         │   │   └── setup/
+         │   │       ├── bundle.py
+         │   │       ├── dep_validator.py
+         │   │       ├── dependencies.py
+         │   │       ├── factory.py
+         │   │       ├── __init__.py
+         │   │       ├── keys.py
+         │   │       ├── opt_validator.py
+         │   │       ├── options.py
+         │   │       ├── registry.py
+         │   │       └── validator.py
+         │   ├── command/
+         │   │   ├── command.py
+         │   │   ├── gen_shared_file_command_definition.py
+         │   │   ├── gen_shared_file_command_executor.py
+         │   │   ├── icommand_definition.py
+         │   │   ├── icommand_executor.py
+         │   │   └── __init__.py
+         │   ├── config/
+         │   │   ├── gen_shared_file.cfg
+         │   │   ├── gen_shared_file.logo
+         │   │   ├── scheme.json
+         │   │   └── templates.tgz
+         │   └── subprocessor.py
+         ├── __init__.py
+         ├── py.typed
+         └── setup/
+             ├── bundle.py
+             ├── dep_validator.py
+             ├── dependencies.py
+             ├── factory.py
+             ├── __init__.py
+             ├── keys.py
+             ├── opt_validator.py
+             ├── options.py
+             ├── registry.py
+             └── validator.py
 
-    6 directories, 16 files
+     10 directories, 44 files
 ```
+</details>
 
-### Code coverage
+#### ✨ Features
+
+* Automatically scaffolds SharedFile projects with build/make files.
+* Provides a modular and extensible architecture based on OOP and SOLID principles.
+* Includes command line interface (CLI) support via a command/executor structure.
+* Robust validation of project bundles, dependencies, and options.
+* Comes with configurable templates and JSON schema definitions.
+* High code quality with full type checking and 100% unit test coverage.
+
+### 📊 Code coverage
+
+<details>
+<summary><b>Click to expand code coverage</b></summary>
 
 | Name | Stmts | Miss | Cover |
 |------|-------|------|-------|
-| `gen_shared_file/__init__.py` | 69 | 12 | 83%|
-| `gen_shared_file/pro/__init__.py` | 58 | 4 | 93%|
-| `gen_shared_file/pro/read_template.py` | 41 | 2 | 95%|
-| `gen_shared_file/pro/write_template.py` | 48 | 3 | 94%|
-| **Total** | 216 | 21 | 90% |
+| `gen_shared_file/__init__.py` | 8 | 0 | 100%|
+| `gen_shared_file/core/__init__.py` | 9 | 0 | 100%|
+| `gen_shared_file/core/model/__init__.py` | 9 | 0 | 100%|
+| `gen_shared_file/core/model/project_setup.py` | 14 | 0 | 100%|
+| `gen_shared_file/core/service/__init__.py` | 9 | 0 | 100%|
+| `gen_shared_file/core/service/engine.py` | 27 | 0 | 100%|
+| `gen_shared_file/core/service/iservice.py` | 14 | 0 | 100%|
+| `gen_shared_file/core/service/isubprocessor.py` | 14 | 0 | 100%|
+| `gen_shared_file/engine.py` | 57 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/__init__.py` | 9 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/engine.py` | 39 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/icli.py` | 14 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/setup/__init__.py` | 9 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/setup/bundle.py` | 22 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/setup/dep_validator.py` | 36 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/setup/dependencies.py` | 18 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/setup/factory.py` | 35 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/setup/keys.py` | 26 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/setup/opt_validator.py` | 36 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/setup/options.py` | 15 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/setup/registry.py` | 24 | 0 | 100%|
+| `gen_shared_file/infrastructure/cli/setup/validator.py` | 43 | 0 | 100%|
+| `gen_shared_file/infrastructure/command/__init__.py` | 9 | 0 | 100%|
+| `gen_shared_file/infrastructure/command/command.py` | 16 | 0 | 100%|
+| `gen_shared_file/infrastructure/command/gen_shared_file_command_definition.py` | 24 | 0 | 100%|
+| `gen_shared_file/infrastructure/command/gen_shared_file_command_executor.py` | 21 | 0 | 100%|
+| `gen_shared_file/infrastructure/command/icommand_definition.py` | 14 | 0 | 100%|
+| `gen_shared_file/infrastructure/command/icommand_executor.py` | 13 | 0 | 100%|
+| `gen_shared_file/infrastructure/subprocessor.py` | 55 | 0 | 100%|
+| `gen_shared_file/setup/__init__.py` | 9 | 0 | 100%|
+| `gen_shared_file/setup/bundle.py` | 23 | 0 | 100%|
+| `gen_shared_file/setup/dep_validator.py` | 36 | 0 | 100%|
+| `gen_shared_file/setup/dependencies.py` | 19 | 0 | 100%|
+| `gen_shared_file/setup/factory.py` | 48 | 0 | 100%|
+| `gen_shared_file/setup/keys.py` | 27 | 0 | 100%|
+| `gen_shared_file/setup/opt_validator.py` | 34 | 0 | 100%|
+| `gen_shared_file/setup/options.py` | 12 | 0 | 100%|
+| `gen_shared_file/setup/registry.py` | 32 | 0 | 100%|
+| `gen_shared_file/setup/validator.py` | 48 | 0 | 100%|
+| **Total** | 927 | 0 | 100% |
 
-### Docs
+</details>
+
+### 🛠 Usage
+
+Install package
+
+```bash
+pip3 install gen_shared_file
+```
+
+Prepare main entry point by downloading [main.py](https://raw.githubusercontent.com/vroncevic/gen_shared_file/main/main.py) or create your own.
+
+
+```bash
+wget -O main.py https://raw.githubusercontent.com/vroncevic/gen_shared_file/main/main.py
+```
+
+Running tool for creating new SharedFile project skeleton
+
+```bash
+python3 main.py create --name mytool --type base --output ./demo/
+```
+
+### 📚 Docs
 
 [![Documentation Status](https://readthedocs.org/projects/gen-shared-file/badge/?version=latest)](https://gen-shared-file.readthedocs.io/en/latest/?badge=latest)
 
@@ -155,15 +263,15 @@ More documentation and info at
 * [gen_shared_file.readthedocs.io](https://gen-shared-file.readthedocs.io)
 * [www.python.org](https://www.python.org/)
 
-### Contributing
+### 👥 Contributing
 
 [Contributing to gen_shared_file](CONTRIBUTING.md)
 
-### Copyright and licence
+### 📄 Copyright and licence
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2019 - 2026 by [vroncevic.github.io/gen_shared_file](https://vroncevic.github.io/gen_shared_file/)
+Copyright (C) 2025 - 2026 by [vroncevic.github.io/gen_shared_file](https://vroncevic.github.io/gen_shared_file/)
 
 **gen_shared_file** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.x or,
@@ -173,4 +281,4 @@ Lets help and support PSF.
 
 [![Python Software Foundation](https://raw.githubusercontent.com/vroncevic/gen_shared_file/dev/docs/psf-logo-alpha.png)](https://www.python.org/psf/)
 
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://psfmember.org/index.php?q=civicrm/contribute/transact&reset=1&id=2)
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.python.org/psf/donations/)

@@ -5,3 +5,4 @@ gen_shared_file
    :maxdepth: 4
 
    gen_shared_file
+   main
