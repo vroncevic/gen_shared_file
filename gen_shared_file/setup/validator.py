@@ -22,6 +22,7 @@ Info
 from __future__ import annotations
 
 from ats_utilities.base.setup.bundle import BaseBundle
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
@@ -34,7 +35,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2026, https://vroncevic.github.io/gen_shared_file'
 __credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/gen_shared_file/blob/dev/LICENSE'
-__version__ = '1.0.5'
+__version__ = '1.0.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -48,6 +49,7 @@ class GenSharedFileBundleValidator:
 
             :methods:
                 | validate - Validates the gen_shared_file bundle.
+                | is_valid - Checks if the gen_shared_file bundle is valid.
     '''
 
     @classmethod
@@ -85,3 +87,18 @@ class GenSharedFileBundleValidator:
         istype(bundle.service, IService, ctx, msg_service_istype)
         istype(bundle.subprocessor, ISubProcessor, ctx, msg_subprocessor_istype)
         istype(bundle.cli, ICLI, ctx, msg_cli_istype)
+
+    @classmethod
+    def is_valid(cls, gensharedfilebundle: GenSharedFileBundle) -> bool:
+        '''
+            Checks if the gensharedfilebundle is valid.
+
+            :param gensharedfilebundle: The gensharedfilebundle to be checked.
+            :return: True if valid, False otherwise.
+        '''
+        try:
+            cls.validate(gensharedfilebundle)
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False

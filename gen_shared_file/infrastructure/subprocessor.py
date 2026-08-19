@@ -94,18 +94,16 @@ class SubProcessor:
             :exceptions: None.
         '''
         try:
-            current_dir: str = dirname(realpath(__file__))
             output_dir: str = params.get('output')
             project_name: str = params.get('name')
-            project_type: str = params.get('type', 'base')
-            scheme: str = f'{current_dir}/{self._scheme}'
-            templates: str = f'{current_dir}/{self._templates}'
+            scheme: str = f'{dirname(realpath(__file__))}/{self._scheme}'
+            templates: str = f'{dirname(realpath(__file__))}/{self._templates}'
 
             success = self._generator.generate(
                 data=GeneratorData(
                     archive_path=templates,
                     target_dir=output_dir,
-                    template_key=project_type,
+                    template_key=params.get('type', 'base'),
                     scheme=scheme,
                     template_values={
                         'project_name': project_name,
@@ -119,7 +117,7 @@ class SubProcessor:
             if success:
                 self._logger.write_log(INFO, '    Generated files:',)
 
-                for root, dirs, files in walk(output_dir):
+                for root, _, files in walk(output_dir):
                     for file in files:
                         rel_dir = relpath(root, output_dir)
 
